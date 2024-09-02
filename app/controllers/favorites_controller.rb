@@ -3,7 +3,7 @@ class FavoritesController < ApplicationController
     book = Book.find(params[:book_id])
     favorite = Favorite.new(book_id: book.id)
     favorite.user_id = current_user.id
-    #上記2行はまとめて favorite = current_user.favorites.new(book_id: book.id) とも表記できる
+    #上記2行はまとめて favorite = current_user.favorites.new(book_id: book.id) とも表記
     favorite.save
     redirect_back(fallback_location: root_path)
   end

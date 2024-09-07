@@ -8,10 +8,34 @@
 	  <th>introduction</th>
 	  <th><%= user.introduction %></th>
   </tr>
+  <tr>
+    <th class="col-6">following
+      <%= link_to user_followings_path(user.id) do %>
+        <%= user.followings.count %>
+      <% end %>
+    </th>
+    <th class="col-6">followers
+      <%= link_to user_followers_path(user.id) do %>
+        <%= user.followers.count %>
+      <% end %>
+    </th>
+  </tr>
 </table>
 
 <div class='row'>
-  <%= link_to edit_user_path(user), class: "btn btn-outline-secondary btn-block" do %>
-    <i class="fas fa-user-cog"></i>
+  <% if user.id == current_user.id %>
+    <%= link_to edit_user_path(user), class: "btn btn-outline-secondary btn-block mx-4" do %>
+      <i class="fas fa-user-cog"></i>
+    <% end %>
+  <% else %>
+    <% if current_user.followings.include?(user) %>
+      <%= link_to user_relationships_path(user.id), method: :delete, class: "btn btn-outline-danger btn-block mx-4" do %>
+        <i class="fa-solid fa-user-xmark" style="color:red;"></i> unfollow
+      <% end %>
+    <% else %>
+      <%= link_to user_relationships_path(user.id), method: :post, class: "btn btn-outline-success btn-block mx-4" do %>
+        <i class="fa-solid fa-user-plus" style="color:green;"></i> follow
+      <% end %>
+    <% end %>
   <% end %>
 </div>

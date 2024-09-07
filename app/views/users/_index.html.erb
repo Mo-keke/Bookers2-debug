@@ -11,6 +11,25 @@
       <tr>
         <td><%= image_tag user.get_profile_image, size: '50x50' %></td>
         <td><%= user.name %></td>
+        <td>following:
+          <%= link_to user_followings_path(user.id) do %>
+            <%= user.followings.count %>
+          <% end %>
+        </td>
+        <td>followers:
+          <%= link_to user_followers_path(user.id) do %>
+            <%= user.followers.count %>
+          <% end %>
+        </td>
+        <td>
+          <% unless user.id == current_user.id %>
+            <% if current_user.followings.include?(user) %>
+              <%= link_to user_relationships_path(user.id), method: :delete, class: "btn btn-danger btn-sm" do %>unfollow<% end %>
+            <% else %>
+              <%= link_to user_relationships_path(user.id), method: :post, class: "btn btn-success btn-sm" do %>follow<% end %>
+            <% end %>
+          <% end %>
+        </td>
         <td><%= link_to 'Show', user %></td>
       </tr>
     <% end %>

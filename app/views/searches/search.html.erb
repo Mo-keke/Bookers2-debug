@@ -1,0 +1,5 @@
+<% if @range == "User" %>
+  <%= render 'users_search', users: @users, word: @word %>
+<% else %>
+  <%= render 'books_search', books: @books, word: @word %>
+<% end %>

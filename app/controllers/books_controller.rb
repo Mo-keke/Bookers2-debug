@@ -3,6 +3,7 @@ class BooksController < ApplicationController
   def show
     @book = Book.find(params[:id])
     @book_comment = BookComment.new
+    @book_comments = BookComment.where(book_id: @book.id)
     @newBook = Book.new
   end
 
